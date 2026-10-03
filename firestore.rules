@@ -1,0 +1,52 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Admin only access function
+    function isAdmin() {
+      return request.auth != null;
+    }
+    
+    // Public readable collections
+    match /settings/{document} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+    match /home/{document} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+    match /about/{document} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+    match /education/{document} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+    match /skills/{document} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+    match /projects/{document} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+    match /certifications/{document} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+    match /contact/{document} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+    
+    // Messages collection
+    match /messages/{document} {
+      // Public can only create messages
+      allow create: if true;
+      // Only admin can read, update, or delete messages
+      allow read, update, delete: if isAdmin();
+    }
+  }
+}

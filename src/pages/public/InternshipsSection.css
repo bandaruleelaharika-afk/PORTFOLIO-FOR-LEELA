@@ -1,0 +1,109 @@
+.internships-section {
+  position: relative;
+}
+
+.internships-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  position: relative;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.internships-timeline::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 20px;
+  width: 2px;
+  background-color: var(--border-accent);
+}
+
+.internship-item {
+  display: flex;
+  flex-direction: column;
+  padding-left: 50px;
+  position: relative;
+}
+
+.internship-year {
+  position: absolute;
+  left: 0;
+  top: 10px;
+  width: 40px;
+  height: 40px;
+  background-color: var(--bg-secondary);
+  border: 2px solid var(--accent);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: var(--accent);
+  z-index: 2;
+}
+
+.internship-content {
+  padding: 25px;
+}
+
+.internship-company {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  margin-bottom: 5px;
+  color: var(--text-primary);
+}
+
+.internship-role {
+  font-size: 1.1rem;
+  color: var(--accent);
+  margin-bottom: 5px;
+  font-weight: 500;
+}
+
+.internship-location {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin-bottom: 15px;
+  font-weight: 500;
+}
+
+.internship-description {
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+@media (min-width: 768px) {
+  .internships-timeline::before {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .internship-item {
+    width: 50%;
+    padding: 0;
+    margin-bottom: 20px;
+  }
+
+  .internship-item:nth-child(odd) {
+    align-self: flex-start;
+    padding-right: 40px;
+  }
+
+  .internship-item:nth-child(even) {
+    align-self: flex-end;
+    padding-left: 40px;
+  }
+
+  .internship-year {
+    left: 100%;
+    transform: translateX(-50%);
+  }
+
+  .internship-item:nth-child(even) .internship-year {
+    left: 0;
+  }
+}
