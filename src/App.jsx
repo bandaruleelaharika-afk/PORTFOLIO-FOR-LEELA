@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import FloatingWhatsApp from './components/FloatingWhatsApp';
+import BackToTop from './components/BackToTop';
 
 import HomeSection from './pages/public/HomeSection';
 import AboutSection from './pages/public/AboutSection';
@@ -34,6 +35,7 @@ const PublicPortfolio = () => {
 
   return (
     <>
+      <div className="background-abstract-shape"></div>
       <Cursor />
       <Navbar />
       <main>
@@ -47,6 +49,7 @@ const PublicPortfolio = () => {
       </main>
       <Footer />
       <FloatingWhatsApp />
+      <BackToTop />
     </>
   );
 };

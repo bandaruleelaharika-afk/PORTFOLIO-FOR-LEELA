@@ -1,20 +1,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap');
 
 :root {
-  --bg-primary: #0b1120;
-  --bg-secondary: #131c31;
-  --bg-secondary-rgb: 19, 28, 49;
-  --bg-tertiary: #1a2642;
-  --accent: #00df89;
-  --accent-hover: #00c478;
-  --accent-transparent: rgba(0, 223, 137, 0.15);
-  --text-primary: #ffffff;
+  --bg-primary: #050b14;
+  --bg-secondary: #0a1120;
+  --bg-secondary-rgb: 10, 17, 32;
+  --bg-tertiary: #0f192b;
+  --card-bg: rgba(10, 17, 32, 0.7);
+  --accent: #10b981;
+  --accent-hover: #059669;
+  --accent-transparent: rgba(16, 185, 129, 0.15);
+  --text-primary: #f8fafc;
   --text-secondary: #94a3b8;
-  --border: rgba(255, 255, 255, 0.1);
-  --border-accent: rgba(0, 223, 137, 0.3);
-  --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.2), 0 4px 6px -2px rgba(0, 0, 0, 0.1);
-  --shadow-accent: 0 0 20px rgba(0, 223, 137, 0.2);
+  --border: rgba(148, 163, 184, 0.15);
+  --border-accent: rgba(16, 185, 129, 0.3);
+  --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.2), 0 2px 4px -1px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.15);
+  --shadow-accent: 0 0 20px rgba(16, 185, 129, 0.2);
   
   --font-heading: 'Outfit', sans-serif;
   --font-body: 'Inter', sans-serif;
@@ -27,10 +28,11 @@
 }
 
 :root[data-theme='light'] {
-  --bg-primary: #f8fafc;
+  --bg-primary: #f9fafb;
   --bg-secondary: #ffffff;
   --bg-secondary-rgb: 255, 255, 255;
-  --bg-tertiary: #f1f5f9;
+  --bg-tertiary: #f3f4f6;
+  --card-bg: #ffffff;
   --accent: #059669;
   --accent-hover: #047857;
   --accent-transparent: rgba(5, 150, 105, 0.15);
@@ -61,26 +63,75 @@ body {
   position: relative;
 }
 
-/* Geometric background elements */
+/* Layered background elements for premium feel */
 body::before, body::after {
   content: '';
   position: fixed;
-  width: 50vw;
-  height: 50vw;
   border-radius: 50%;
-  background: radial-gradient(circle, var(--accent-transparent) 0%, transparent 60%);
   z-index: -1;
   pointer-events: none;
+  filter: blur(80px);
+  opacity: 0.4;
+  transition: var(--transition);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  body::before {
+    animation: float1 20s ease-in-out infinite alternate;
+  }
+  body::after {
+    animation: float2 25s ease-in-out infinite alternate;
+  }
+  .background-abstract-shape {
+    animation: pulse 15s ease-in-out infinite alternate;
+  }
+}
+
+@keyframes float1 {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(5vw, 5vw) scale(1.1); }
+}
+
+@keyframes float2 {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(-5vw, -5vw) scale(1.05); }
+}
+
+@keyframes pulse {
+  0% { opacity: 0.6; }
+  100% { opacity: 0.9; }
 }
 
 body::before {
-  top: -20%;
-  left: -10%;
+  top: -10vw;
+  left: -10vw;
+  width: 40vw;
+  height: 40vw;
+  background: radial-gradient(circle, var(--accent-transparent) 0%, transparent 70%);
 }
 
 body::after {
-  bottom: -20%;
-  right: -10%;
+  bottom: -20vw;
+  right: -10vw;
+  width: 60vw;
+  height: 60vw;
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.05) 0%, transparent 60%);
+}
+
+.background-abstract-shape {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100vw;
+  height: 100vh;
+  z-index: -2;
+  pointer-events: none;
+  background-image: 
+    radial-gradient(at 0% 50%, rgba(16, 185, 129, 0.03) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, rgba(10, 17, 32, 0.5) 0px, transparent 50%);
+  background-size: 100% 100%;
+  opacity: 0.8;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -166,6 +217,7 @@ input:focus, textarea:focus {
   font-weight: 600;
   margin-bottom: 0.5rem;
   display: block;
+  text-align: center;
 }
 
 /* Buttons */
@@ -223,19 +275,22 @@ input:focus, textarea:focus {
 
 /* Cards */
 .card {
-  background: var(--bg-secondary);
+  background: var(--card-bg);
   border-radius: var(--radius-md);
   border: 1px solid var(--border);
   padding: 24px;
   transition: var(--transition);
   position: relative;
   overflow: hidden;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: var(--shadow-sm);
 }
 
 .card:hover {
-  border-color: var(--border-accent);
+  border-color: var(--accent);
   transform: translateY(-5px);
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-md), 0 0 15px rgba(16, 185, 129, 0.1);
 }
 
 /* Glassmorphism helpers sparingly */

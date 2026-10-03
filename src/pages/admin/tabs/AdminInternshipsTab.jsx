@@ -1,14 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { db } from '../../../services/firebase';
 import { collection, getDocs, doc, setDoc, deleteDoc } from 'firebase/firestore';
+import { uploadToCloudinary } from '../../../services/cloudinary';
+import { Image as ImageIcon } from 'lucide-react';
 
 const AdminInternshipsTab = () => {
   const [internships, setInternships] = useState([]);
   const [loading, setLoading] = useState(true);
   const [editingId, setEditingId] = useState(null);
   const [formData, setFormData] = useState({
-    company: '', location: '', year: '', role: '', description: '', order: 0
+    company: '', location: '', year: '', role: '', description: '', order: 0, imageUrl: ''
   });
+  const [imageFile, setImageFile] = useState(null);
+  const [uploading, setUploading] = useState(false);
 
   const fetchInternships = async () => {
     setLoading(true);
@@ -33,7 +37,12 @@ const AdminInternshipsTab = () => {
 
   const handleEdit = (internship) => {
     setEditingId(internship.id);
-    setFormData(internship);
+    setFormData({
+      ...internship,
+      imageUrl: internship.imageUrl || ''
+    });
+    setImageFile(null);
+    window.scrollTo(0, 0);
   };
 
   const handleDelete = async (id) => {
@@ -45,14 +54,37 @@ const AdminInternshipsTab = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const idToSave = editingId || `int_${Date.now()}`;
-    await setDoc(doc(db, 'internships', idToSave), {
-      ...formData,
-      order: Number(formData.order)
-    });
-    setEditingId(null);
-    setFormData({ company: '', location: '', year: '', role: '', description: '', order: 0 });
-    fetchInternships();
+    setUploading(true);
+    try {
+      let imageUrl = formData.imageUrl || '';
+
+      if (imageFile) {
+        const imageRes = await uploadToCloudinary(imageFile);
+        imageUrl = imageRes.url;
+      }
+
+      const idToSave = editingId || `int_${Date.now()}`;
+      await setDoc(doc(db, 'internships', idToSave), {
+        ...formData,
+        imageUrl,
+        order: Number(formData.order)
+      });
+      setEditingId(null);
+      setFormData({ company: '', location: '', year: '', role: '', description: '', order: 0, imageUrl: '' });
+      setImageFile(null);
+      fetchInternships();
+    } catch (error) {
+      console.error("Error saving internship:", error);
+    } finally {
+      setUploading(false);
+    }
+  };
+
+  const removeImage = () => {
+    if (window.confirm("Remove this image?")) {
+      setFormData({ ...formData, imageUrl: '' });
+      setImageFile(null);
+    }
   };
 
   return (
@@ -86,10 +118,25 @@ const AdminInternshipsTab = () => {
             <label>Display Order</label>
             <input type="number" name="order" value={formData.order} onChange={handleChange} required />
           </div>
-          <div style={{ display: 'flex', gap: '10px' }}>
-            <button type="submit" className="btn btn-primary">{editingId ? 'Save Changes' : 'Add Internship'}</button>
+
+          <div className="admin-form-group">
+            <label><ImageIcon size={16} style={{display:'inline', verticalAlign:'middle'}}/> Internship Image</label>
+            <input type="file" accept="image/*" onChange={(e) => setImageFile(e.target.files[0])} />
+            {formData.imageUrl && !imageFile && (
+              <div style={{ marginTop: '10px' }}>
+                <img src={formData.imageUrl} alt="Preview" style={{ maxWidth: '200px', borderRadius: '8px' }} />
+                <button type="button" onClick={removeImage} className="btn btn-outline" style={{ display: 'block', marginTop: '10px', color: '#ef4444', borderColor: '#ef4444' }}>Remove Image</button>
+              </div>
+            )}
+            {imageFile && (
+              <p style={{ marginTop: '10px', color: 'var(--accent)' }}>New image selected for upload.</p>
+            )}
+          </div>
+
+          <div style={{ display: 'flex', gap: '10px', marginTop: '20px' }}>
+            <button type="submit" className="btn btn-primary" disabled={uploading}>{uploading ? 'Saving...' : (editingId ? 'Save Changes' : 'Add Internship')}</button>
             {editingId && (
-              <button type="button" className="btn btn-outline" onClick={() => { setEditingId(null); setFormData({ company: '', location: '', year: '', role: '', description: '', order: 0 }); }}>
+              <button type="button" className="btn btn-outline" onClick={() => { setEditingId(null); setFormData({ company: '', location: '', year: '', role: '', description: '', order: 0, imageUrl: '' }); setImageFile(null); }}>
                 Cancel
               </button>
             )}
@@ -100,9 +147,16 @@ const AdminInternshipsTab = () => {
       <div className="admin-list">
         {loading ? <p>Loading internships...</p> : internships.map(internship => (
           <div key={internship.id} className="admin-list-item card" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <div>
-              <h4 style={{ margin: '0 0 5px 0' }}>{internship.company} - {internship.role}</h4>
-              <p style={{ margin: 0, fontSize: '0.9rem', color: 'var(--text-secondary)' }}>{internship.year} | {internship.location}</p>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+              {internship.imageUrl ? (
+                <img src={internship.imageUrl} alt="Internship" style={{ width: '60px', height: '40px', objectFit: 'cover', borderRadius: '4px' }} />
+              ) : (
+                <div style={{ width: '60px', height: '40px', backgroundColor: 'var(--bg-secondary)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '10px' }}>No Img</div>
+              )}
+              <div>
+                <h4 style={{ margin: '0 0 5px 0' }}>{internship.company} - {internship.role}</h4>
+                <p style={{ margin: 0, fontSize: '0.9rem', color: 'var(--text-secondary)' }}>{internship.year} | {internship.location}</p>
+              </div>
             </div>
             <div style={{ display: 'flex', gap: '10px' }}>
               <button onClick={() => handleEdit(internship)} className="btn btn-outline" style={{ padding: '5px 10px' }}>Edit</button>

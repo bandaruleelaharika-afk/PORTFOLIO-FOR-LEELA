@@ -20,11 +20,22 @@ const InternshipsSection = () => {
                   <Briefcase size={16} />
                 </div>
                 <div className="internship-content card">
-                  <div className="internship-year">{internship.year}</div>
-                  <h3 className="internship-company">{internship.company}</h3>
-                  <h4 className="internship-role">{internship.role}</h4>
-                  <div className="internship-location">{internship.location}</div>
-                  <p className="internship-description">{internship.description}</p>
+                  {internship.imageUrl ? (
+                    <div className="internship-image-wrapper">
+                      <img src={internship.imageUrl} alt={internship.company} className="internship-image" />
+                    </div>
+                  ) : (
+                    <div className="internship-image-placeholder">
+                      <span>Upload Internship Image</span>
+                    </div>
+                  )}
+                  <div className="internship-details">
+                    <div className="internship-year">{internship.year}</div>
+                    <h3 className="internship-company">{internship.company}</h3>
+                    <h4 className="internship-role">{internship.role}</h4>
+                    <div className="internship-location">{internship.location}</div>
+                    <p className="internship-description">{internship.description}</p>
+                  </div>
                 </div>
               </div>
             ))}

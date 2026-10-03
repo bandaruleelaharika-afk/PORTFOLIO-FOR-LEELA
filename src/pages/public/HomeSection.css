@@ -5,6 +5,8 @@
   padding-top: var(--nav-height);
   position: relative;
   overflow: hidden;
+  background: radial-gradient(circle at 70% 30%, rgba(16, 185, 129, 0.03) 0%, transparent 50%),
+              radial-gradient(circle at 20% 80%, rgba(37, 99, 235, 0.02) 0%, transparent 50%);
 }
 
 .home-container {
@@ -73,8 +75,8 @@
 
 .geometric-frame {
   position: relative;
-  width: 320px;
-  height: 380px;
+  width: 280px;
+  height: 330px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -82,8 +84,8 @@
 
 .frame-border {
   position: absolute;
-  top: -20px;
-  left: -20px;
+  top: -15px;
+  left: -15px;
   width: 100%;
   height: 100%;
   border: 2px solid var(--accent);
@@ -108,7 +110,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 20%;
+  object-position: center 15%;
   border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
   position: relative;
   z-index: 2;
@@ -125,14 +127,14 @@
     font-size: 3.5rem;
   }
   .geometric-frame {
-    width: 350px;
-    height: 400px;
+    width: 260px;
+    height: 310px;
   }
 }
 
 @media (max-width: 768px) {
   .home-container {
-    flex-direction: column-reverse;
+    flex-direction: column;
     text-align: center;
     gap: 40px;
     padding-top: 40px;
@@ -157,8 +159,11 @@
   }
   
   .geometric-frame {
-    width: 300px;
-    height: 350px;
+    width: 75vw;
+    max-width: 280px;
+    height: calc(75vw * 1.15);
+    max-height: 320px;
+    margin: 0 auto;
   }
 }
 

@@ -13,7 +13,8 @@
 
 .navbar.scrolled {
   height: 70px;
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-sm);
+  border-bottom: 1px solid var(--border);
 }
 
 .navbar-container {
