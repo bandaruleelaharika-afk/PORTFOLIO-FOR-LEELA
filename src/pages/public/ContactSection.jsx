@@ -55,21 +55,28 @@ const ContactSection = () => {
         <div style={{ marginBottom: '20px' }}>
           <button 
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} 
+            title="Back to Home"
             style={{ 
-              background: 'transparent', 
-              border: 'none', 
-              color: 'var(--accent)', 
+              background: 'var(--bg-secondary)', 
+              border: '1px solid var(--border)', 
+              color: 'var(--text-primary)', 
               cursor: 'pointer', 
               display: 'inline-flex', 
               alignItems: 'center', 
-              gap: '8px',
-              fontSize: '1rem',
-              padding: 0,
-              fontFamily: 'inherit',
-              fontWeight: 500
+              justifyContent: 'center',
+              width: '40px',
+              height: '40px',
+              borderRadius: '50%',
+              transition: 'var(--transition)',
+              position: 'absolute',
+              top: '40px',
+              left: '20px',
+              zIndex: 10
             }}
+            onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'var(--accent)'; e.currentTarget.style.color = 'var(--accent)'; }}
+            onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'var(--border)'; e.currentTarget.style.color = 'var(--text-primary)'; }}
           >
-            <ArrowLeft size={18} /> Back to Home
+            <ArrowLeft size={20} />
           </button>
         </div>
         <span className="section-subheading">My Contact</span>

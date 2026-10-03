@@ -3,38 +3,86 @@
 }
 
 .about-content-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 50px;
+  margin-top: 20px;
+}
+
+.about-column {
   display: flex;
   flex-direction: column;
-  gap: 50px;
-  margin-top: 40px;
+}
+
+.about-header-inline {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 25px;
+  color: var(--accent);
+}
+
+.about-header-inline h3 {
+  font-family: var(--font-heading);
+  font-size: 1.8rem;
+  color: var(--text-primary);
+  margin: 0;
 }
 
 .about-summary-box {
   border-left: 4px solid var(--accent);
+  height: 100%;
 }
 
 .about-summary {
   font-size: 1.15rem;
   line-height: 1.8;
   color: var(--text-primary);
+  white-space: pre-line;
 }
 
-.sub-heading {
-  font-family: var(--font-heading);
-  font-size: 2rem;
-  margin-bottom: 25px;
-  color: var(--text-primary);
+/* Education Timeline */
+.education-timeline {
+  position: relative;
+  padding-left: 30px;
 }
 
-.education-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 30px;
+.education-timeline::before {
+  content: '';
+  position: absolute;
+  top: 10px;
+  bottom: 10px;
+  left: 7px;
+  width: 2px;
+  background-color: var(--border-accent);
 }
 
-.education-card {
+.timeline-item {
+  position: relative;
+  margin-bottom: 30px;
+}
+
+.timeline-item:last-child {
+  margin-bottom: 0;
+}
+
+.timeline-marker {
+  position: absolute;
+  left: -22px;
+  top: 15px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background-color: var(--bg-primary);
+  border: 4px solid var(--accent);
+  z-index: 2;
+  transform: translateX(-50%);
+}
+
+.timeline-content {
   display: flex;
   flex-direction: column;
+  padding: 20px;
 }
 
 .edu-year {
@@ -82,8 +130,9 @@
   font-size: 1.1rem;
 }
 
-@media (max-width: 768px) {
-  .education-grid {
+@media (max-width: 992px) {
+  .about-content-wrapper {
     grid-template-columns: 1fr;
+    gap: 60px;
   }
 }

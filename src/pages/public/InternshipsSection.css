@@ -1,53 +1,70 @@
 .internships-section {
   position: relative;
+  background-color: var(--bg-primary);
+}
+
+.internships-timeline-container {
+  max-width: 800px;
+  margin: 0 auto;
 }
 
 .internships-timeline {
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
   position: relative;
-  max-width: 800px;
-  margin: 0 auto;
+  padding-left: 40px;
 }
 
 .internships-timeline::before {
   content: '';
   position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 20px;
+  top: 10px;
+  bottom: 10px;
+  left: 14px;
   width: 2px;
   background-color: var(--border-accent);
 }
 
 .internship-item {
-  display: flex;
-  flex-direction: column;
-  padding-left: 50px;
   position: relative;
+  margin-bottom: 40px;
 }
 
-.internship-year {
+.internship-item:last-child {
+  margin-bottom: 0;
+}
+
+.internship-marker {
   position: absolute;
-  left: 0;
-  top: 10px;
-  width: 40px;
-  height: 40px;
+  left: -25px;
+  top: 15px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
   background-color: var(--bg-secondary);
   border: 2px solid var(--accent);
-  border-radius: 50%;
+  color: var(--accent);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: 700;
-  font-size: 0.85rem;
-  color: var(--accent);
   z-index: 2;
+  transform: translateX(-50%);
 }
 
 .internship-content {
+  display: flex;
+  flex-direction: column;
   padding: 25px;
+}
+
+.internship-year {
+  display: inline-block;
+  background-color: var(--accent-transparent);
+  color: var(--accent);
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 15px;
+  align-self: flex-start;
 }
 
 .internship-company {
@@ -74,36 +91,4 @@
 .internship-description {
   color: var(--text-secondary);
   line-height: 1.6;
-}
-
-@media (min-width: 768px) {
-  .internships-timeline::before {
-    left: 50%;
-    transform: translateX(-50%);
-  }
-
-  .internship-item {
-    width: 50%;
-    padding: 0;
-    margin-bottom: 20px;
-  }
-
-  .internship-item:nth-child(odd) {
-    align-self: flex-start;
-    padding-right: 40px;
-  }
-
-  .internship-item:nth-child(even) {
-    align-self: flex-end;
-    padding-left: 40px;
-  }
-
-  .internship-year {
-    left: 100%;
-    transform: translateX(-50%);
-  }
-
-  .internship-item:nth-child(even) .internship-year {
-    left: 0;
-  }
 }

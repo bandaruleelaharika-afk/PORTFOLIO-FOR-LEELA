@@ -1,14 +1,12 @@
 import React from 'react';
 import { useData } from '../../contexts/DataContext';
+import { GraduationCap, User } from 'lucide-react';
 import './AboutSection.css';
 
 const AboutSection = () => {
   const { data } = useData();
   const aboutData = data?.about?.[0] || {};
   
-  // Only get MCA and Degree based on prompt requirements for public site, 
-  // but if it's dynamic we should ideally filter by order or a flag,
-  // For safety we sort and take top 2, assuming admin creates them properly.
   const educationList = data?.education ? [...data.education].sort((a, b) => a.order - b.order) : [];
 
   return (
@@ -17,28 +15,44 @@ const AboutSection = () => {
         <h2 className="section-heading">{aboutData.heading || 'ABOUT ME'}</h2>
         
         <div className="about-content-wrapper">
-          <div className="about-summary-box card">
-            <p className="about-summary" style={{ whiteSpace: 'pre-line' }}>
-              {aboutData.summary || "I am an MCA student passionate about software development and emerging technologies.\n\nI enjoy learning technologies, building practical projects, solving problems, and developing useful software solutions.\n\nPassionate about software development, emerging technologies, problem-solving, continuous learning, and building innovative practical solutions."}
-            </p>
-          </div>
           
-          <div className="education-container">
-            <h3 className="sub-heading">Education</h3>
-            <div className="education-grid">
-              {educationList.slice(0, 2).map((edu, idx) => (
-                <div key={edu.id || idx} className="education-card card">
-                  <div className="edu-year">{edu.year}</div>
-                  <h4 className="edu-course">{edu.course}</h4>
-                  <p className="edu-college">{edu.college}</p>
-                  <div className="edu-footer">
-                    <span className="edu-location">{edu.location}</span>
-                    <span className="edu-percentage">{edu.percentage}</span>
-                  </div>
-                </div>
-              ))}
+          {/* Left Column: About Me */}
+          <div className="about-column">
+            <div className="about-header-inline">
+              <User size={28} className="about-icon" />
+              <h3>Who I Am</h3>
+            </div>
+            <div className="about-summary-box card">
+              <p className="about-summary">
+                {aboutData.summary || "I am an MCA student passionate about software development and emerging technologies.\n\nI enjoy learning technologies, building practical projects, solving problems, and developing useful software solutions.\n\nPassionate about software development, emerging technologies, problem-solving, continuous learning, and building innovative practical solutions."}
+              </p>
             </div>
           </div>
+          
+          {/* Right Column: Education */}
+          <div className="about-column">
+             <div className="about-header-inline">
+               <GraduationCap size={28} className="about-icon" />
+               <h3>Education</h3>
+             </div>
+             <div className="education-timeline">
+               {educationList.slice(0, 2).map((edu, idx) => (
+                 <div key={edu.id || idx} className="timeline-item">
+                   <div className="timeline-marker"></div>
+                   <div className="timeline-content card">
+                     <div className="edu-year">{edu.year}</div>
+                     <h4 className="edu-course">{edu.course}</h4>
+                     <p className="edu-college">{edu.college}</p>
+                     <div className="edu-footer">
+                       <span className="edu-location">{edu.location}</span>
+                       <span className="edu-percentage">{edu.percentage}</span>
+                     </div>
+                   </div>
+                 </div>
+               ))}
+             </div>
+          </div>
+
         </div>
       </div>
     </section>

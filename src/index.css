@@ -50,7 +50,6 @@
 }
 
 html {
-  scroll-behavior: smooth;
 }
 
 body {
@@ -135,10 +134,28 @@ input:focus, textarea:focus {
 
 .section-heading {
   font-size: 3rem;
-  margin-bottom: 1rem;
+  margin-bottom: 3rem;
   text-transform: uppercase;
   letter-spacing: 2px;
   color: var(--text-primary);
+  text-align: center;
+  position: relative;
+  padding-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.section-heading::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 4px;
+  background-color: var(--accent);
+  border-radius: 2px;
 }
 
 .section-subheading {

@@ -36,14 +36,10 @@ const ProjectsSection = () => {
                 <h3 className="project-title">{project.title}</h3>
                 <p className="project-description">{project.description}</p>
                 <div className="project-links">
-                  {project.projectUrl ? (
+                  {project.projectUrl && (
                     <a href={project.projectUrl} target="_blank" rel="noopener noreferrer" className="btn btn-outline">
                       <ExternalLink size={18} /> View Project
                     </a>
-                  ) : (
-                    <button className="btn btn-outline" disabled style={{ cursor: 'default', opacity: 0.7 }}>
-                      Project Details
-                    </button>
                   )}
                   {project.githubUrl && (
                     <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="btn-icon">

@@ -25,6 +25,13 @@ import { ThemeProvider } from './contexts/ThemeContext';
 import './index.css';
 
 const PublicPortfolio = () => {
+  useEffect(() => {
+    document.documentElement.style.scrollBehavior = 'smooth';
+    return () => {
+      document.documentElement.style.scrollBehavior = 'auto';
+    };
+  }, []);
+
   return (
     <>
       <Cursor />
