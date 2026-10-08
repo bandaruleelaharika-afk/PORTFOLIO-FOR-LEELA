@@ -66,10 +66,10 @@ const SkillsSection = () => {
           {professionalSkills.length > 0 && (
             <div className="skills-category-box card professional-box">
               <h3 className="skills-category-title">Professional Skills</h3>
-              <div className="professional-skills-grid">
+              <div className="skills-grid pro-grid">
                 {professionalSkills.map((skill, idx) => (
-                  <div key={skill.id || idx} className="pro-skill-item">
-                    <div className="pro-skill-icon">
+                  <div key={skill.id || idx} className="skill-item">
+                    <div className="skill-icon-wrapper">
                        {getSkillIcon(skill.name)}
                     </div>
                     <span className="skill-name">{skill.name}</span>

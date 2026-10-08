@@ -22,22 +22,22 @@ const HomeSection = () => {
     }
   };
 
-  // If a profile image is set via admin, use it, else use the locally provided image
   const profileImageSrc = settings.profileImageUrl || localProfileImg;
 
   return (
     <section id="home" className="home-section">
+      {/* Background Layers */}
+      <div className="home-bg-layer">
+        <div className="tech-grid"></div>
+        <div className="orbital-line"></div>
+      </div>
+
       <div className="container home-container">
-        
         <div className="home-content">
           <span className="home-greeting">HELLO, I'M</span>
           <h1 className="home-title">
-            {(homeData.title || "Bandaru\nLeela Harika").split('\n').map((line, i) => (
-              <React.Fragment key={i}>
-                {line}
-                <br />
-              </React.Fragment>
-            ))}
+            <span className="home-name-line">BANDARU</span>
+            <span className="home-name-line">LEELA HARIKA</span>
           </h1>
           
           <div className="home-label">
@@ -70,7 +70,6 @@ const HomeSection = () => {
             )}
           </div>
         </div>
-        
       </div>
     </section>
   );

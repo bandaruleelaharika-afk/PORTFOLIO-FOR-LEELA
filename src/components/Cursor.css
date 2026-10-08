@@ -1,49 +1,76 @@
-.custom-cursor {
+.water-cursor-main {
   position: fixed;
+  top: 0; left: 0;
   pointer-events: none;
   z-index: 9999;
-  transform: translate(-50%, -50%);
-  transition: opacity 0.3s ease;
+  width: 16px;
+  height: 16px;
+  /* Start hidden to avoid jumping from 0,0 */
+  margin-left: -8px;
+  margin-top: -8px;
+  will-change: transform;
 }
 
-.custom-cursor.hidden {
-  opacity: 0;
+.water-drop-shape {
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.9) 0%, var(--accent) 60%, rgba(59, 130, 246, 0.4) 100%);
+  border-radius: 50% 50% 50% 5px; /* Droplet shape */
+  transform: rotate(-45deg); /* Pointing up-left */
+  box-shadow: 0 4px 10px rgba(16, 185, 129, 0.2);
 }
 
-.cursor-dot {
-  width: 8px;
-  height: 8px;
-  background-color: var(--accent);
-  border-radius: 50%;
+.water-cursor-trails {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9998;
+}
+
+.water-trail-drop {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.cursor-ring {
-  width: 32px;
-  height: 32px;
-  border: 1px solid var(--border-accent);
+  width: 10px;
+  height: 10px;
+  background: radial-gradient(circle at center, rgba(255,255,255,0.7) 0%, var(--accent) 60%, transparent 100%);
   border-radius: 50%;
-  position: absolute;
-  top: 50%;
-  left: 50%;
   transform: translate(-50%, -50%);
-  transition: transform 0.1s ease-out;
+  animation: dropFade 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  will-change: transform, opacity;
 }
 
-/* Hide normal cursor when custom one is active */
-@media (pointer: fine) {
-  body.custom-cursor-active {
-    cursor: none;
+.water-ripple-click {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--accent);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: rippleFade 0.6s ease-out forwards;
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+@keyframes dropFade {
+  0% {
+    opacity: 0.6;
+    transform: translate(-50%, -50%) scale(0.5);
   }
-  
-  body.custom-cursor-active a, 
-  body.custom-cursor-active button, 
-  body.custom-cursor-active input, 
-  body.custom-cursor-active textarea, 
-  body.custom-cursor-active select {
-    cursor: none;
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(1.6);
+  }
+}
+
+@keyframes rippleFade {
+  0% {
+    opacity: 0.8;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(4);
+    border-width: 0px;
   }
 }

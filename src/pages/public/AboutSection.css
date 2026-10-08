@@ -39,6 +39,7 @@
   line-height: 1.8;
   color: var(--text-primary);
   white-space: pre-line;
+  text-align: justify;
 }
 
 /* Education Timeline */

@@ -1,0 +1,119 @@
+.loading-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--bg-primary);
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 0.3s ease-out, visibility 0.3s ease-out;
+}
+
+.loading-screen.fade-out {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.loading-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.loading-profile-container {
+  margin-bottom: 20px;
+}
+
+.loading-profile-wrapper {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  padding: 4px;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  position: relative;
+  opacity: 0;
+  animation: fadeInProfile 0.6s ease forwards;
+}
+
+.loading-profile-wrapper::after {
+  content: '';
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  right: -4px;
+  bottom: -4px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  border-top-color: var(--accent);
+  border-right-color: var(--accent);
+  animation: spinRing 1s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
+}
+
+.loading-profile-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.loading-name {
+  font-family: var(--font-heading);
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 15px;
+  letter-spacing: 1px;
+  opacity: 0;
+  animation: fadeInName 0.6s ease 0.5s forwards;
+}
+
+.loading-bar-container {
+  width: 160px;
+  height: 2px;
+  background-color: var(--bg-tertiary);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.loading-bar {
+  width: 0%;
+  height: 100%;
+  background-color: var(--accent);
+  border-radius: 2px;
+  animation: loadProgress 1.4s cubic-bezier(0.7, 0, 0.3, 1) forwards;
+}
+
+@keyframes fadeInProfile {
+  0% { opacity: 0; transform: scale(0.95); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes fadeInName {
+  0% { opacity: 0; transform: translateY(5px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes spinRing {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes loadProgress {
+  0% { width: 0%; }
+  50% { width: 60%; }
+  100% { width: 100%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loading-profile-wrapper::after {
+    animation: none;
+    border: 2px solid var(--accent);
+  }
+  .loading-bar {
+    animation: none;
+    width: 100%;
+  }
+}

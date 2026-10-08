@@ -22,9 +22,9 @@
   
   --nav-height: 80px;
   --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  --radius-sm: 8px;
-  --radius-md: 12px;
-  --radius-lg: 16px;
+  --radius-sm: 14px;
+  --radius-md: 28px;
+  --radius-lg: 32px;
 }
 
 :root[data-theme='light'] {
@@ -132,6 +132,74 @@ body::after {
     radial-gradient(at 100% 0%, rgba(10, 17, 32, 0.5) 0px, transparent 50%);
   background-size: 100% 100%;
   opacity: 0.8;
+}
+
+/* Premium Animated Background Elements */
+.premium-bg-container {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+.orb-1, .orb-2, .orb-3, .orb-shape {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: 0.3;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  animation-timing-function: ease-in-out;
+}
+.orb-1 {
+  width: 40vw; height: 40vw;
+  background: var(--accent);
+  top: 10%; left: -10%;
+  animation-name: floatOrb1;
+  animation-duration: 25s;
+}
+.orb-2 {
+  width: 30vw; height: 30vw;
+  background: #3b82f6; /* soft blue glow */
+  bottom: 10%; right: -5%;
+  animation-name: floatOrb2;
+  animation-duration: 30s;
+  opacity: 0.15;
+}
+.orb-3 {
+  width: 20vw; height: 20vw;
+  background: var(--accent);
+  top: 40%; right: 20%;
+  animation-name: floatOrb3;
+  animation-duration: 35s;
+  opacity: 0.2;
+}
+.orb-shape {
+  width: 50vw; height: 50vw;
+  border-radius: 40% 60% 60% 40% / 40% 40% 60% 60%;
+  border: 1px solid var(--accent);
+  filter: blur(4px);
+  opacity: 0.1;
+  top: 20%; left: 30%;
+  animation-name: floatShape;
+  animation-duration: 40s;
+  background: transparent;
+}
+@keyframes floatOrb1 { 0% { transform: translate(0, 0); } 100% { transform: translate(10vw, 15vh); } }
+@keyframes floatOrb2 { 0% { transform: translate(0, 0); } 100% { transform: translate(-15vw, -10vh); } }
+@keyframes floatOrb3 { 0% { transform: translate(0, 0); } 100% { transform: translate(-10vw, 20vh); } }
+@keyframes floatShape { 0% { transform: translate(0, 0) rotate(0deg); } 100% { transform: translate(5vw, 5vh) rotate(90deg); } }
+
+@media (max-width: 768px) {
+  .orb-3, .orb-shape { display: none; }
+  .orb-1 { width: 60vw; height: 60vw; opacity: 0.2; }
+  .orb-2 { width: 50vw; height: 50vw; opacity: 0.15; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .orb-1, .orb-2, .orb-3, .orb-shape {
+    animation: none;
+  }
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -288,9 +356,9 @@ input:focus, textarea:focus {
 }
 
 .card:hover {
-  border-color: var(--accent);
-  transform: translateY(-5px);
-  box-shadow: var(--shadow-md), 0 0 15px rgba(16, 185, 129, 0.1);
+  border-color: var(--border-accent);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
 }
 
 /* Glassmorphism helpers sparingly */
@@ -321,5 +389,17 @@ input:focus, textarea:focus {
   }
   .section-heading {
     font-size: 2.2rem;
+  }
+  
+  /* Mandatory: Left align paragraphs on mobile */
+  .about-description, 
+  .internship-description, 
+  .project-description, 
+  .contact-description,
+  .projects-section p,
+  .internships-section p,
+  .about-section p,
+  .contact-section p {
+    text-align: left !important;
   }
 }

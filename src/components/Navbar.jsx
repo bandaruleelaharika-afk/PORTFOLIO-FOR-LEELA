@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X, Sun, Moon } from 'lucide-react';
 import { useTheme } from '../contexts/ThemeContext';
+import { useData } from '../contexts/DataContext';
+import localProfileImg from '../assets/profile.jpg';
 import './Navbar.css';
 
 const Navbar = () => {
@@ -8,6 +10,10 @@ const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
   const { theme, toggleTheme } = useTheme();
+  const { data } = useData();
+
+  const settings = data?.settings?.[0] || {};
+  const profileImageSrc = settings.profileImageUrl || localProfileImg;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -59,7 +65,8 @@ const Navbar = () => {
     <nav className={`navbar ${isScrolled ? 'scrolled glass' : ''}`}>
       <div className="navbar-container">
         <div className="navbar-logo" onClick={() => scrollToSection('home')}>
-          LH
+          <img src={profileImageSrc} alt="Leela Harika" className="header-profile-img" />
+          <span className="header-name">Leela Harika</span>
         </div>
 
         {/* Desktop Nav */}

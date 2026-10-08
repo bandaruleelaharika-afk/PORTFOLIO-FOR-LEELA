@@ -37,8 +37,8 @@ const ProjectsSection = () => {
                 <p className="project-description">{project.description}</p>
                 <div className="project-links">
                   {project.projectUrl && (
-                    <a href={project.projectUrl} target="_blank" rel="noopener noreferrer" className="btn btn-outline">
-                      <ExternalLink size={18} /> View Project
+                    <a href={project.projectUrl} target="_blank" rel="noopener noreferrer" className="btn-icon">
+                      <ExternalLink size={22} />
                     </a>
                   )}
                   {project.githubUrl && (

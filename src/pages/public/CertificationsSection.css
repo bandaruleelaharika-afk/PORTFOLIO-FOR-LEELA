@@ -33,9 +33,10 @@
 }
 
 .cert-image-container {
-  height: 200px;
+  height: 160px;
   background-color: var(--bg-primary);
   position: relative;
+  border-bottom: 1px solid var(--border);
 }
 
 .cert-image {
@@ -58,7 +59,7 @@
 }
 
 .cert-content {
-  padding: 25px;
+  padding: 20px 24px;
   display: flex;
   flex-direction: column;
   flex-grow: 1;
@@ -73,7 +74,7 @@
 .cert-org {
   color: var(--text-secondary);
   font-size: 0.95rem;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
   flex-grow: 1;
 }
 
@@ -86,7 +87,7 @@
   font-size: 0.8rem;
   font-weight: 600;
   align-self: flex-start;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
 }
 
 .cert-action {

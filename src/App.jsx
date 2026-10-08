@@ -13,6 +13,7 @@ import ProjectsSection from './pages/public/ProjectsSection';
 import CertificationsSection from './pages/public/CertificationsSection';
 import ContactSection from './pages/public/ContactSection';
 import Cursor from './components/Cursor';
+import LoadingScreen from './components/LoadingScreen';
 
 // Admin
 import AdminLogin from './pages/admin/Login';
@@ -26,6 +27,8 @@ import { ThemeProvider } from './contexts/ThemeContext';
 import './index.css';
 
 const PublicPortfolio = () => {
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     document.documentElement.style.scrollBehavior = 'smooth';
     return () => {
@@ -35,10 +38,17 @@ const PublicPortfolio = () => {
 
   return (
     <>
+      {loading && <LoadingScreen onFinish={() => setLoading(false)} />}
+      <div className="premium-bg-container">
+        <div className="orb-1"></div>
+        <div className="orb-2"></div>
+        <div className="orb-3"></div>
+        <div className="orb-shape"></div>
+      </div>
       <div className="background-abstract-shape"></div>
       <Cursor />
       <Navbar />
-      <main>
+      <main style={{ opacity: loading ? 0 : 1, transition: 'opacity 0.6s ease' }}>
         <HomeSection />
         <AboutSection />
         <SkillsSection />
@@ -47,9 +57,11 @@ const PublicPortfolio = () => {
         <CertificationsSection />
         <ContactSection />
       </main>
-      <Footer />
-      <FloatingWhatsApp />
-      <BackToTop />
+      <div style={{ opacity: loading ? 0 : 1, transition: 'opacity 0.6s ease' }}>
+        <Footer />
+        <FloatingWhatsApp />
+        <BackToTop />
+      </div>
     </>
   );
 };

@@ -8,7 +8,7 @@
   color: var(--text-secondary);
   max-width: 600px;
   margin: 0 auto 50px auto;
-  text-align: center;
+  text-align: justify;
 }
 
 .contact-wrapper {
