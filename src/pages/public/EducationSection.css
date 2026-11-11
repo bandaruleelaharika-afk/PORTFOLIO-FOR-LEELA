@@ -1,0 +1,555 @@
+/* ====================================================
+   Editorial Scroll-Driven Education Timeline (Reference Video Style)
+   ==================================================== */
+
+.education-section {
+  position: relative;
+  padding: 110px 0;
+  overflow: visible;
+}
+
+.education-header-center {
+  text-align: center;
+  max-width: 720px;
+  margin: 0 auto 50px;
+}
+
+.education-main-heading {
+  margin-bottom: 1rem;
+}
+
+.education-intro-sub {
+  color: var(--text-secondary);
+  font-size: 1.05rem;
+  line-height: 1.65;
+}
+
+/* ====================================================
+   Desktop 2-Column Grid (45% Staggered Visuals / 55% Timeline)
+   ==================================================== */
+.education-layout-grid {
+  display: grid;
+  grid-template-columns: 45% 55%;
+  gap: 50px;
+  align-items: flex-start;
+  position: relative;
+}
+
+/* LEFT SIDE — 45%: Sticky Staggered Image Showcase */
+.education-left-showcase {
+  position: sticky;
+  top: 115px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 5;
+}
+
+.staggered-images-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  height: 480px;
+  opacity: 0;
+  transform: translateY(30px) scale(0.97);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.education-section.in-view .staggered-images-wrapper {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* Ambient Backing Glow */
+.edu-image-ambient-halo {
+  position: absolute;
+  top: 15%;
+  left: 15%;
+  width: 70%;
+  height: 70%;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--accent-transparent) 0%, transparent 70%);
+  filter: blur(40px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Staggered Image Panels */
+.staggered-image-panel {
+  position: absolute;
+  overflow: hidden;
+  border-radius: 26px;
+  border: 1.5px solid var(--border);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.22);
+  background-color: var(--bg-secondary);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+}
+
+:root[data-theme='light'] .staggered-image-panel {
+  border-color: rgba(15, 23, 42, 0.08);
+  box-shadow: 0 16px 36px rgba(15, 23, 42, 0.1);
+}
+
+.staggered-image-panel:hover {
+  transform: translateY(-4px);
+  border-color: var(--border-accent);
+  box-shadow: 0 20px 42px rgba(0, 0, 0, 0.3), 0 0 20px var(--accent-transparent);
+}
+
+/* Panel 1: Placed Higher & Left */
+.panel-one {
+  top: 0;
+  left: 0;
+  width: 58%;
+  height: 340px;
+  z-index: 1;
+}
+
+/* Panel 2: Placed Lower & Right (Staggered Offset Matching Reference) */
+.panel-two {
+  bottom: 10px;
+  right: 0;
+  width: 58%;
+  height: 330px;
+  z-index: 2;
+}
+
+.edu-staggered-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.6s ease;
+}
+
+.staggered-image-panel:hover .edu-staggered-img {
+  transform: scale(1.05);
+}
+
+.panel-sheen-overlay {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(180deg, transparent 40%, rgba(6, 12, 22, 0.6) 100%);
+  pointer-events: none;
+}
+
+.panel-tag-pill {
+  position: absolute;
+  bottom: 14px;
+  left: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #ffffff;
+  background-color: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(8px);
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.panel-tag-icon {
+  color: var(--accent);
+}
+
+/* Floating Status Chip on Left Panel */
+.edu-floating-stat-chip {
+  position: absolute;
+  bottom: -15px;
+  left: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 18px;
+  border-radius: var(--radius-full);
+  background-color: var(--card-bg);
+  border: 1px solid var(--border);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(14px);
+  z-index: 4;
+}
+
+:root[data-theme='light'] .edu-floating-stat-chip {
+  background-color: #ffffff;
+  border-color: rgba(13, 148, 136, 0.25);
+  box-shadow: 0 10px 24px rgba(13, 148, 136, 0.12);
+}
+
+.stat-sparkle-icon {
+  color: var(--accent);
+  flex-shrink: 0;
+}
+
+.stat-title {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.stat-sub {
+  display: block;
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+}
+
+/* ====================================================
+   RIGHT SIDE — 55%: Vertical Education Timeline
+   ==================================================== */
+.education-right-timeline {
+  position: relative;
+  padding-left: 45px;
+}
+
+/* Vertical Timeline Track Line */
+.timeline-track-rail {
+  position: absolute;
+  top: 24px;
+  bottom: 40px;
+  left: 17px;
+  width: 2px;
+  background-color: var(--border);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+/* Active Progressive Line Drawing Down */
+.timeline-progress-laser {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: linear-gradient(180deg, var(--accent) 0%, #38bdf8 100%);
+  border-radius: 2px;
+  box-shadow: 0 0 10px var(--accent);
+  transition: height 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Milestones Stream */
+.timeline-milestones-stream {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.timeline-milestone-node {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  opacity: 0.45;
+  transform: translateX(18px);
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.timeline-milestone-node.node-active {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Circular Milestone Node Indicator on the Line */
+.milestone-marker-wrapper {
+  position: absolute;
+  left: -45px;
+  top: 14px;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3;
+}
+
+.milestone-outer-ring {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: var(--bg-primary);
+  border: 2px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.4s ease;
+}
+
+.timeline-milestone-node.node-active .milestone-outer-ring {
+  border-color: var(--accent);
+  box-shadow: 0 0 14px var(--accent-transparent);
+}
+
+.milestone-core-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.4s ease;
+}
+
+.marker-cap-icon {
+  display: none;
+}
+
+.timeline-milestone-node.node-active .milestone-core-dot {
+  background-color: var(--accent);
+  box-shadow: 0 0 8px var(--accent);
+}
+
+/* Glow Pulse for Current Milestone */
+.milestone-glow-pulse {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid var(--accent);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.timeline-milestone-node.node-current .milestone-glow-pulse {
+  opacity: 0.6;
+  animation: markerPulse 2s ease-out infinite;
+}
+
+@keyframes markerPulse {
+  0% { transform: translate(-50%, -50%) scale(0.8); opacity: 0.8; }
+  100% { transform: translate(-50%, -50%) scale(1.6); opacity: 0; }
+}
+
+/* Milestone Card Content */
+.milestone-card-content {
+  width: 100%;
+  padding: 28px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  background-color: var(--card-bg);
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.timeline-milestone-node.node-active .milestone-card-content {
+  border-color: var(--border-accent);
+}
+
+.timeline-milestone-node.node-current .milestone-card-content {
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.14), 0 0 20px var(--accent-transparent);
+  border-color: var(--accent);
+}
+
+:root[data-theme='light'] .milestone-card-content {
+  background-color: #ffffff;
+  box-shadow: 0 4px 18px rgba(15, 23, 42, 0.04);
+}
+
+:root[data-theme='light'] .timeline-milestone-node.node-current .milestone-card-content {
+  box-shadow: 0 14px 34px rgba(13, 148, 136, 0.12);
+  border-color: var(--accent);
+}
+
+/* Card Top Row */
+.milestone-top-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.milestone-year-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--accent);
+  background-color: var(--accent-transparent);
+  padding: 5px 12px;
+  border-radius: var(--radius-full);
+  letter-spacing: 0.5px;
+}
+
+.milestone-score-badge {
+  font-size: 0.84rem;
+  color: var(--text-secondary);
+  background-color: var(--bg-tertiary);
+  padding: 5px 12px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+}
+
+.milestone-score-badge strong {
+  color: var(--text-primary);
+  font-weight: 700;
+}
+
+/* Milestone Titles & Info */
+.milestone-qualification-title {
+  font-size: 1.55rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  line-height: 1.25;
+  letter-spacing: 0.2px;
+}
+
+.milestone-college-name {
+  font-size: 1.08rem;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.milestone-location-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+}
+
+.milestone-pin-icon {
+  color: var(--accent);
+  flex-shrink: 0;
+}
+
+.milestone-description-text {
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: var(--text-secondary);
+  margin-top: 4px;
+}
+
+/* Verified Seal */
+.milestone-verified-seal {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: var(--accent);
+  margin-top: 6px;
+  padding-top: 10px;
+  border-top: 1px dashed var(--border);
+}
+
+.seal-check {
+  color: var(--accent);
+}
+
+/* ====================================================
+   Mobile Responsive Layout
+   "Mobile design is extremely important.
+   Do NOT squeeze the desktop two-column layout into mobile.
+   On mobile, change the layout to:
+   EDUCATION HEADING
+   Education image / visual
+   Single-column vertical timeline"
+   ==================================================== */
+@media (max-width: 900px) {
+  .education-section {
+    padding: 80px 0;
+  }
+
+  .education-layout-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  /* Sticky disabled on mobile; compact visual container */
+  .education-left-showcase {
+    position: static;
+    width: 100%;
+  }
+
+  .staggered-images-wrapper {
+    height: 250px;
+    max-width: 100%;
+  }
+
+  .panel-one {
+    width: 52%;
+    height: 220px;
+    top: 0;
+    left: 0;
+    border-radius: 20px;
+  }
+
+  .panel-two {
+    width: 52%;
+    height: 210px;
+    bottom: 0;
+    right: 0;
+    border-radius: 20px;
+  }
+
+  .edu-floating-stat-chip {
+    display: none; /* Hide heavy chip on mobile to keep compact */
+  }
+
+  /* Single Column Timeline */
+  .education-right-timeline {
+    padding-left: 36px;
+    width: 100%;
+  }
+
+  .timeline-track-rail {
+    left: 14px;
+  }
+
+  .milestone-marker-wrapper {
+    left: -36px;
+  }
+
+  .milestone-card-content {
+    padding: 20px;
+  }
+
+  .milestone-qualification-title {
+    font-size: 1.25rem;
+  }
+
+  .milestone-college-name {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .staggered-images-wrapper {
+    height: 200px;
+  }
+
+  .panel-one {
+    width: 52%;
+    height: 180px;
+  }
+
+  .panel-two {
+    width: 52%;
+    height: 170px;
+  }
+
+  .milestone-top-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  .staggered-images-wrapper,
+  .timeline-milestone-node,
+  .timeline-progress-laser {
+    transition: none !important;
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+

@@ -1,26 +1,37 @@
 .navbar {
   position: fixed;
-  top: 15px;
+  top: 18px;
   left: 50%;
   transform: translateX(-50%);
-  width: calc(100% - 40px);
-  max-width: 1200px;
-  height: 60px;
-  border-radius: 999px;
+  width: calc(100% - 48px);
+  max-width: 1180px;
+  height: 64px;
+  border-radius: 9999px;
   z-index: 1000;
-  transition: var(--transition);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   display: flex;
   align-items: center;
-  background-color: rgba(var(--bg-secondary-rgb), 0.6);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background-color: var(--card-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border: 1px solid var(--border);
-  box-shadow: var(--shadow-sm);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+:root[data-theme='light'] .navbar {
+  background-color: #ffffff;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  box-shadow: 0 4px 24px rgba(15, 23, 42, 0.06);
+}
+
+:root[data-theme='dark'] .navbar {
+  background-color: rgba(13, 21, 39, 0.85);
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.45);
 }
 
 .navbar.scrolled {
-  background-color: rgba(var(--bg-secondary-rgb), 0.85);
-  box-shadow: var(--shadow-md);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
   border-color: var(--border-accent);
 }
 

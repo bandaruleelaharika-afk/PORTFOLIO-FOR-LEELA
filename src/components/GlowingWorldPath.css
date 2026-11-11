@@ -1,0 +1,250 @@
+/* Glowing World Path Styling for Light & Dark Mode */
+
+.glowing-world-path-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.world-path-svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* Ambient wide glow path */
+.path-ambient-glow {
+  stroke: var(--accent);
+  stroke-width: 6px;
+  stroke-linecap: round;
+  opacity: 0.18;
+  transition: stroke 0.4s ease, opacity 0.4s ease;
+}
+
+/* Crisp core path */
+.path-core-line {
+  stroke: url(#pathGradientPrimary);
+  stroke-width: 2px;
+  stroke-linecap: round;
+  opacity: 0.35;
+  stroke-dasharray: 8 6;
+  animation: dashMove 60s linear infinite;
+  transition: opacity 0.4s ease;
+}
+
+/* Secondary wave line */
+.path-secondary-wave {
+  stroke: #38bdf8;
+  stroke-width: 1.5px;
+  stroke-linecap: round;
+  opacity: 0.22;
+  stroke-dasharray: 4 8;
+  animation: dashMoveReverse 50s linear infinite;
+  transition: opacity 0.4s ease;
+}
+
+/* Traveling Laser Pulses */
+.path-traveling-laser {
+  stroke: url(#glowLaserGradient);
+  stroke-width: 4px;
+  stroke-linecap: round;
+  fill: none;
+  stroke-dasharray: 120 1800;
+  will-change: stroke-dashoffset;
+}
+
+.laser-1 {
+  animation: travelLaser 14s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+.laser-2 {
+  animation: travelLaser 14s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  animation-delay: 7s;
+  stroke-width: 3.5px;
+}
+
+.laser-3 {
+  stroke: #38bdf8;
+  animation: travelLaserReverse 18s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  animation-delay: 3s;
+  stroke-width: 3px;
+}
+
+/* Constellation Nodes */
+.glowing-path-node {
+  position: absolute;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.node-core {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: radial-gradient(circle, #ffffff 10%, var(--accent) 70%, transparent 100%);
+  box-shadow: 0 0 16px var(--accent), 0 0 30px var(--accent);
+  animation: nodePulse 3s ease-in-out infinite alternate;
+}
+
+.node-ripple,
+.node-ripple-secondary {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border-radius: 50%;
+  border: 1.5px solid var(--accent);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  opacity: 0;
+}
+
+.node-ripple {
+  width: 240%;
+  height: 240%;
+  animation: radarPing 3.5s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+}
+
+.node-ripple-secondary {
+  width: 380%;
+  height: 380%;
+  animation: radarPing 3.5s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+  animation-delay: 1.2s;
+  border-color: #38bdf8;
+}
+
+/* Light Mode Overrides */
+:root[data-theme='light'] .path-ambient-glow {
+  stroke: var(--accent);
+  opacity: 0.15;
+  filter: blur(12px);
+}
+
+:root[data-theme='light'] .path-core-line {
+  opacity: 0.45;
+  stroke-width: 2.2px;
+}
+
+:root[data-theme='light'] .path-secondary-wave {
+  stroke: #0284c7;
+  opacity: 0.35;
+}
+
+:root[data-theme='light'] .path-traveling-laser {
+  stroke: #059669;
+  filter: drop-shadow(0 0 6px rgba(5, 150, 105, 0.6));
+}
+
+:root[data-theme='light'] .node-core {
+  background: radial-gradient(circle, #ffffff 20%, #059669 80%, transparent 100%);
+  box-shadow: 0 0 12px rgba(5, 150, 105, 0.7);
+}
+
+:root[data-theme='light'] .node-ripple {
+  border-color: rgba(5, 150, 105, 0.5);
+}
+
+/* Keyframe Animations */
+@keyframes travelLaser {
+  0% {
+    stroke-dashoffset: 0;
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    stroke-dashoffset: -3800;
+    opacity: 0;
+  }
+}
+
+@keyframes travelLaserReverse {
+  0% {
+    stroke-dashoffset: -3800;
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 0;
+  }
+}
+
+@keyframes dashMove {
+  from {
+    stroke-dashoffset: 0;
+  }
+  to {
+    stroke-dashoffset: 1000;
+  }
+}
+
+@keyframes dashMoveReverse {
+  from {
+    stroke-dashoffset: 0;
+  }
+  to {
+    stroke-dashoffset: -1000;
+  }
+}
+
+@keyframes nodePulse {
+  0% {
+    transform: scale(0.85);
+    opacity: 0.6;
+  }
+  100% {
+    transform: scale(1.25);
+    opacity: 1;
+  }
+}
+
+@keyframes radarPing {
+  0% {
+    width: 100%;
+    height: 100%;
+    opacity: 0.8;
+  }
+  100% {
+    width: 450%;
+    height: 450%;
+    opacity: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .path-traveling-laser {
+    stroke-width: 2.5px;
+  }
+  .glowing-path-node:nth-child(even) {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .path-traveling-laser,
+  .path-core-line,
+  .path-secondary-wave,
+  .node-ripple,
+  .node-ripple-secondary,
+  .node-core {
+    animation: none;
+  }
+}

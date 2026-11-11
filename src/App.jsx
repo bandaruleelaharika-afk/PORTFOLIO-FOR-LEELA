@@ -7,6 +7,7 @@ import BackToTop from './components/BackToTop';
 
 import HomeSection from './pages/public/HomeSection';
 import AboutSection from './pages/public/AboutSection';
+import EducationSection from './pages/public/EducationSection';
 import SkillsSection from './pages/public/SkillsSection';
 import InternshipsSection from './pages/public/InternshipsSection';
 import ProjectsSection from './pages/public/ProjectsSection';
@@ -14,6 +15,7 @@ import CertificationsSection from './pages/public/CertificationsSection';
 import ContactSection from './pages/public/ContactSection';
 import Cursor from './components/Cursor';
 import LoadingScreen from './components/LoadingScreen';
+import Cyber3DBackground from './components/Cyber3DBackground';
 
 // Admin
 import AdminLogin from './pages/admin/Login';
@@ -31,26 +33,52 @@ const PublicPortfolio = () => {
 
   useEffect(() => {
     document.documentElement.style.scrollBehavior = 'smooth';
-    return () => {
-      document.documentElement.style.scrollBehavior = 'auto';
-    };
-  }, []);
+    
+    // Smooth Scroll Reveal Observer
+    if (!loading) {
+      const observerCallback = (entries, obs) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('reveal-active');
+            obs.unobserve(entry.target);
+          }
+        });
+      };
+
+      const observer = new IntersectionObserver(observerCallback, {
+        threshold: 0.1,
+        rootMargin: '0px 0px -30px 0px',
+      });
+
+      const targets = document.querySelectorAll('.card, .section-heading, .section-subheading');
+      targets.forEach((el) => {
+        el.classList.add('reveal-on-scroll');
+        observer.observe(el);
+      });
+
+      return () => {
+        observer.disconnect();
+      };
+    }
+  }, [loading]);
 
   return (
     <>
       {loading && <LoadingScreen onFinish={() => setLoading(false)} />}
-      <div className="premium-bg-container">
-        <div className="orb-1"></div>
-        <div className="orb-2"></div>
-        <div className="orb-3"></div>
-        <div className="orb-shape"></div>
+      
+      {/* 3D Moving Interactive Theme Background (Geometric Polyhedrons & Perspective Constellation) */}
+      <Cyber3DBackground />
+      <div className="portfolio-steady-bg" aria-hidden="true">
+        <div className="steady-bg-radial top-glow"></div>
+        <div className="steady-bg-radial bottom-glow"></div>
       </div>
-      <div className="background-abstract-shape"></div>
+
       <Cursor />
       <Navbar />
       <main style={{ opacity: loading ? 0 : 1, transition: 'opacity 0.6s ease' }}>
         <HomeSection />
         <AboutSection />
+        <EducationSection />
         <SkillsSection />
         <InternshipsSection />
         <ProjectsSection />

@@ -12,12 +12,14 @@ import {
   MessageSquare, 
   Settings, 
   LogOut,
+  GraduationCap,
   Menu,
   X
 } from 'lucide-react';
 
 import AdminHomeTab from './tabs/AdminHomeTab';
 import AdminAboutTab from './tabs/AdminAboutTab';
+import AdminEducationTab from './tabs/AdminEducationTab';
 import AdminSkillsTab from './tabs/AdminSkillsTab';
 import AdminInternshipsTab from './tabs/AdminInternshipsTab';
 import AdminProjectsTab from './tabs/AdminProjectsTab';
@@ -45,7 +47,8 @@ const AdminDashboard = () => {
   const navItems = [
     { id: 'dashboard', label: 'Dashboard', icon: <LayoutDashboard size={20} /> },
     { id: 'home', label: 'Home Content', icon: <HomeIcon size={20} /> },
-    { id: 'about', label: 'About & Education', icon: <User size={20} /> },
+    { id: 'about', label: 'About Me', icon: <User size={20} /> },
+    { id: 'education', label: 'Education', icon: <GraduationCap size={20} /> },
     { id: 'skills', label: 'Skills', icon: <Code size={20} /> },
     { id: 'internships', label: 'Internships', icon: <Briefcase size={20} /> },
     { id: 'projects', label: 'Projects', icon: <Briefcase size={20} /> },
@@ -62,6 +65,8 @@ const AdminDashboard = () => {
         return <AdminHomeTab />;
       case 'about':
         return <AdminAboutTab />;
+      case 'education':
+        return <AdminEducationTab />;
       case 'skills':
         return <AdminSkillsTab />;
       case 'internships':

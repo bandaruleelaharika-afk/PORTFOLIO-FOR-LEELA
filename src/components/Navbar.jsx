@@ -20,15 +20,15 @@ const Navbar = () => {
       setIsScrolled(window.scrollY > 50);
 
       // Active section logic
-      const sections = ['home', 'about', 'skills', 'internships', 'projects', 'certifications', 'contact'];
+      const sections = ['home', 'about', 'education', 'skills', 'internships', 'projects', 'certifications', 'contact'];
       let current = 'home';
       
       for (const section of sections) {
         const element = document.getElementById(section);
         if (element) {
           const rect = element.getBoundingClientRect();
-          if (rect.top <= 100 && rect.bottom >= 100) {
-            current = section;
+          if (rect.top <= 120 && rect.bottom >= 120) {
+            current = section === 'education' ? 'about' : section;
             break;
           }
         }

@@ -1,3 +1,13 @@
+import gasDetectorImg from '../assets/project_gas_detector.jpg';
+import crimeDetectionImg from '../assets/project_crime_detection.jpg';
+import bistImg from '../assets/internship_bist.jpg';
+import blackbuckImg from '../assets/internship_blackbuck.jpg';
+import certMahindraImg from '../assets/cert_mahindra_pride.jpg';
+import certIkkaImg from '../assets/cert_ikka_coromandel.jpg';
+import certHtmlImg from '../assets/cert_html_pyramids.jpg';
+import certPythonImg from '../assets/cert_python_springboard.jpg';
+import localProfileImg from '../assets/profile.jpg';
+
 export const defaultData = {
   settings: [
     {
@@ -8,14 +18,14 @@ export const defaultData = {
       phone: '8309436254',
       location: 'Turangi, Kakinada, Andhra Pradesh, India',
       resumeUrl: '', // To be filled from Firebase
-      profileImageUrl: '', // To be filled from Firebase
+      profileImageUrl: localProfileImg,
       whatsappMessage: 'Hello Leela Harika, I would like to discuss a project/opportunity with you.'
     }
   ],
   home: [
     {
       id: 'homeContent',
-      greeting: "HAII, I'M",
+      greeting: "HELLO, I'M",
       title: "Bandaru\nLeela Harika",
       description: "Passionate about software development, emerging technologies, problem-solving, continuous learning, and building innovative practical solutions.",
       label: "SOFTWARE DEVELOPMENT • AI • WEB TECHNOLOGIES",
@@ -33,21 +43,33 @@ export const defaultData = {
   education: [
     {
       id: 'edu1',
-      course: 'Master of Computer Applications (MCA)',
-      college: 'Aditya University',
-      location: 'Surampalem',
-      year: '2024–2026',
+      course: 'Intermediate (MPC)',
+      college: 'Sri Chaitanya Junior College',
+      location: 'Kakinada, Andhra Pradesh',
+      year: '2019–2021',
       percentage: '85%',
+      description: 'Completed Intermediate education with Mathematics, Physics and Chemistry.',
       order: 1
     },
     {
       id: 'edu2',
       course: 'B.Sc (MECS)',
       college: 'V.S. Lakshmi Degree College',
-      location: 'Kakinada',
+      location: 'Kakinada, Andhra Pradesh',
       year: '2021–2024',
       percentage: '80%',
+      description: 'Completed Bachelor of Science with Mathematics, Electronics, and Computer Science.',
       order: 2
+    },
+    {
+      id: 'edu3',
+      course: 'Master of Computer Applications (MCA)',
+      college: 'Aditya University',
+      location: 'Surampalem, Andhra Pradesh',
+      year: '2024–2026',
+      percentage: '85%',
+      description: 'Pursuing Master of Computer Applications with focus on Software Engineering, Web Technologies and AI/ML.',
+      order: 3
     }
   ],
   skills: [
@@ -71,6 +93,7 @@ export const defaultData = {
       year: '2023',
       role: 'Artificial Intelligence and Machine Learning',
       description: 'Gained proficiency in Artificial Intelligence and Machine Learning.',
+      imageUrl: bistImg,
       order: 1
     },
     {
@@ -80,6 +103,7 @@ export const defaultData = {
       year: '2025',
       role: 'Full Stack Web Development with MERN',
       description: 'Gained proficiency in Full Stack Web Development with MERN.',
+      imageUrl: blackbuckImg,
       order: 2
     }
   ],
@@ -88,14 +112,14 @@ export const defaultData = {
       id: 'proj1',
       title: 'Gas and Smoke Detector',
       description: 'This project aims to create a system that senses the presence of harmful gases in the surrounding environment and provides an alert to people.',
-      imageUrl: '', 
+      imageUrl: gasDetectorImg, 
       order: 1
     },
     {
       id: 'proj2',
       title: 'Crime Detection Using Multi-Layer Perceptron in Social Media Platforms',
       description: 'To identify and analyse criminal activities from social media platforms.',
-      imageUrl: '',
+      imageUrl: crimeDetectionImg,
       order: 2
     }
   ],
@@ -105,7 +129,8 @@ export const defaultData = {
       title: 'Employability Skill Programme',
       organization: 'Mahindra Pride collaboration with Nandi Foundation',
       year: '2023',
-      coverUrl: '',
+      description: 'Comprehensive employability and professional skill enhancement program focusing on corporate communication, presentation, and team collaboration.',
+      coverUrl: certMahindraImg,
       certificateUrl: '',
       order: 1
     },
@@ -114,7 +139,8 @@ export const defaultData = {
       title: 'Career Orientation Program',
       organization: 'Ikka Learning Foundation collaboration with Coromandel',
       year: '2024',
-      coverUrl: '',
+      description: 'Career orientation and industry readiness initiative covering professional roadmapping, corporate etiquette, and industry trends.',
+      coverUrl: certIkkaImg,
       certificateUrl: '',
       order: 2
     },
@@ -123,7 +149,8 @@ export const defaultData = {
       title: 'HTML Basics',
       organization: 'Edu Pyramids',
       year: '',
-      coverUrl: '',
+      description: 'Foundational certification covering modern HTML5 markup, document structure, semantics, and accessible web standards.',
+      coverUrl: certHtmlImg,
       certificateUrl: '',
       order: 3
     },
@@ -132,7 +159,8 @@ export const defaultData = {
       title: 'Python Basics',
       organization: 'Spring Board',
       year: '',
-      coverUrl: '',
+      description: 'Core certification verifying practical understanding of Python programming, control flow, functions, and data structures.',
+      coverUrl: certPythonImg,
       certificateUrl: '',
       order: 4
     }

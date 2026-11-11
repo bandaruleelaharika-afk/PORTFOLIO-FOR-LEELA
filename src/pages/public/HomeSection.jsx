@@ -3,6 +3,7 @@ import { useData } from '../../contexts/DataContext';
 import './HomeSection.css';
 import localProfileImg from '../../assets/profile.jpg';
 import localResumePdf from '../../assets/resume.pdf';
+import { Code, Cpu, Award } from 'lucide-react';
 
 const HomeSection = () => {
   const { data } = useData();
@@ -10,7 +11,10 @@ const HomeSection = () => {
   const settings = data?.settings?.[0] || {};
 
   const handleHireMe = () => {
-    document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+    const contactElem = document.getElementById('contact');
+    if (contactElem) {
+      contactElem.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   const handleGetResume = () => {
@@ -26,22 +30,25 @@ const HomeSection = () => {
 
   return (
     <section id="home" className="home-section">
-      {/* Background Layers */}
-      <div className="home-bg-layer">
-        <div className="tech-grid"></div>
-        <div className="orbital-line"></div>
-      </div>
-
       <div className="container home-container">
+        {/* Left Column: Hero Content Matching Exactly The User's Reference */}
         <div className="home-content">
+          <div className="home-badge-pill">
+            <span className="badge-pulse-dot"></span>
+            <span>AVAILABLE FOR OPPORTUNITIES</span>
+          </div>
+
           <span className="home-greeting">HELLO, I'M</span>
           <h1 className="home-title">
-            <span className="home-name-line">BANDARU</span>
-            <span className="home-name-line">LEELA HARIKA</span>
+            <span className="home-name-line name-primary">BANDARU</span>
+            <span className="home-name-line name-accent">LEELA HARIKA</span>
           </h1>
           
-          <div className="home-label">
-            {homeData.label || "SOFTWARE DEVELOPMENT • AI • WEB TECHNOLOGIES"}
+          <div className="home-label-row">
+            <span className="home-label-bar">|</span>
+            <span className="home-label-text">
+              {homeData.label || "SOFTWARE DEVELOPMENT • AI • WEB TECHNOLOGIES"}
+            </span>
           </div>
 
           <p className="home-description">
@@ -58,16 +65,57 @@ const HomeSection = () => {
           </div>
         </div>
 
+        {/* Right Column: Clean Circular Profile with Concentric Ring, Target Dot & 3 Floating Badges */}
         <div className="home-image-wrapper">
-          <div className="geometric-frame">
-            <div className="frame-border"></div>
-            {profileImageSrc ? (
-              <img src={profileImageSrc} alt="Leela Harika Bandaru" className="profile-image" />
-            ) : (
-              <div className="profile-image-placeholder">
-                <span>Profile Image</span>
+          <div className="profile-showcase-container">
+            {/* Concentric Outer Ring with Left Orbit Indicator Dot */}
+            <div className="profile-outer-ring" aria-hidden="true">
+              <div className="orbit-target-dot">
+                <span className="orbit-inner-dot"></span>
               </div>
-            )}
+            </div>
+
+            {/* Perfect Circular Portrait Frame */}
+            <div className="profile-circular-frame">
+              <img 
+                src={profileImageSrc} 
+                alt="Bandaru Leela Harika" 
+                className="profile-portrait-img" 
+              />
+            </div>
+
+            {/* Floating Badge 1: Top-Left (Full Stack Web) */}
+            <div className="floating-badge badge-top-left">
+              <div className="badge-icon-box box-teal">
+                <Code size={14} strokeWidth={2.2} />
+              </div>
+              <div className="badge-text-box">
+                <span className="badge-title">Full Stack Web</span>
+                <span className="badge-sub">MERN Stack</span>
+              </div>
+            </div>
+
+            {/* Floating Badge 2: Bottom-Left (MCA Post-Graduate) */}
+            <div className="floating-badge badge-bottom-left">
+              <div className="badge-icon-box box-purple">
+                <Award size={14} strokeWidth={2.2} />
+              </div>
+              <div className="badge-text-box">
+                <span className="badge-title">MCA Post-Graduate</span>
+                <span className="badge-sub">Aditya University</span>
+              </div>
+            </div>
+
+            {/* Floating Badge 3: Bottom-Right (AI & ML Enthusiast) */}
+            <div className="floating-badge badge-bottom-right">
+              <div className="badge-icon-box box-cyan">
+                <Cpu size={14} strokeWidth={2.2} />
+              </div>
+              <div className="badge-text-box">
+                <span className="badge-title">AI & ML Enthusiast</span>
+                <span className="badge-sub">Python & Deep Learning</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>

@@ -1,76 +1,127 @@
-.water-cursor-main {
+/* Neo-Glow Magnetic Fluid Cursor */
+
+.neo-cursor-dot {
   position: fixed;
-  top: 0; left: 0;
+  top: 0;
+  left: 0;
+  width: 8px;
+  height: 8px;
+  background-color: var(--accent);
+  border-radius: 50%;
   pointer-events: none;
-  z-index: 9999;
-  width: 16px;
-  height: 16px;
-  /* Start hidden to avoid jumping from 0,0 */
-  margin-left: -8px;
-  margin-top: -8px;
+  z-index: 10001;
+  margin-top: -4px;
+  margin-left: -4px;
+  opacity: 0;
+  transition: opacity 0.2s ease, width 0.2s ease, height 0.2s ease, background-color 0.25s ease;
+  box-shadow: 0 0 10px var(--accent), 0 0 20px var(--accent);
   will-change: transform;
 }
 
-.water-drop-shape {
-  width: 100%;
-  height: 100%;
-  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.9) 0%, var(--accent) 60%, rgba(59, 130, 246, 0.4) 100%);
-  border-radius: 50% 50% 50% 5px; /* Droplet shape */
-  transform: rotate(-45deg); /* Pointing up-left */
-  box-shadow: 0 4px 10px rgba(16, 185, 129, 0.2);
-}
-
-.water-cursor-trails {
+.neo-cursor-ring {
   position: fixed;
-  top: 0; left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 9998;
-}
-
-.water-trail-drop {
-  position: absolute;
-  width: 10px;
-  height: 10px;
-  background: radial-gradient(circle at center, rgba(255,255,255,0.7) 0%, var(--accent) 60%, transparent 100%);
+  top: 0;
+  left: 0;
+  width: 36px;
+  height: 36px;
+  border: 1.5px solid var(--accent);
+  background: radial-gradient(circle, var(--accent-transparent) 0%, transparent 70%);
   border-radius: 50%;
-  transform: translate(-50%, -50%);
-  animation: dropFade 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-  will-change: transform, opacity;
-}
-
-.water-ripple-click {
-  position: absolute;
-  width: 20px;
-  height: 20px;
-  border: 2px solid var(--accent);
-  border-radius: 50%;
-  transform: translate(-50%, -50%);
-  animation: rippleFade 0.6s ease-out forwards;
   pointer-events: none;
-  will-change: transform, opacity;
+  z-index: 10000;
+  margin-top: -18px;
+  margin-left: -18px;
+  opacity: 0;
+  transition: opacity 0.25s ease, width 0.22s cubic-bezier(0.2, 0.9, 0.3, 1), height 0.22s cubic-bezier(0.2, 0.9, 0.3, 1), margin 0.22s cubic-bezier(0.2, 0.9, 0.3, 1), border-color 0.25s ease, background 0.25s ease;
+  box-shadow: 0 0 14px var(--accent-transparent);
+  will-change: transform;
 }
 
-@keyframes dropFade {
-  0% {
-    opacity: 0.6;
-    transform: translate(-50%, -50%) scale(0.5);
+.cursor-ring-pulse {
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  border-radius: 50%;
+  border: 1px dashed var(--accent);
+  opacity: 0.4;
+  animation: cursorRingRotate 10s linear infinite;
+}
+
+/* Visibility */
+.neo-cursor-dot.visible,
+.neo-cursor-ring.visible {
+  opacity: 1;
+}
+
+/* Hover State on interactive elements */
+.neo-cursor-ring.hovered {
+  width: 58px;
+  height: 58px;
+  margin-top: -29px;
+  margin-left: -29px;
+  border-color: var(--accent);
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.22) 0%, rgba(56, 189, 248, 0.08) 60%, transparent 100%);
+  box-shadow: 0 0 25px var(--accent-transparent);
+}
+
+.neo-cursor-dot.hovered {
+  width: 4px;
+  height: 4px;
+  margin-top: -2px;
+  margin-left: -2px;
+  background-color: #ffffff;
+  box-shadow: 0 0 8px #ffffff;
+}
+
+/* Click Active State */
+.neo-cursor-ring.clicked {
+  transform-origin: center;
+  width: 28px;
+  height: 28px;
+  margin-top: -14px;
+  margin-left: -14px;
+  border-width: 2.5px;
+  background: var(--accent-transparent);
+}
+
+.neo-cursor-dot.clicked {
+  transform-origin: center;
+  width: 12px;
+  height: 12px;
+  margin-top: -6px;
+  margin-left: -6px;
+}
+
+@keyframes cursorRingRotate {
+  from {
+    transform: rotate(0deg);
   }
-  100% {
-    opacity: 0;
-    transform: translate(-50%, -50%) scale(1.6);
+  to {
+    transform: rotate(360deg);
   }
 }
 
-@keyframes rippleFade {
-  0% {
-    opacity: 0.8;
-    transform: translate(-50%, -50%) scale(1);
-  }
-  100% {
-    opacity: 0;
-    transform: translate(-50%, -50%) scale(4);
-    border-width: 0px;
+/* Light mode support */
+:root[data-theme='light'] .neo-cursor-dot {
+  background-color: var(--accent);
+  box-shadow: 0 0 8px rgba(5, 150, 105, 0.6);
+}
+
+:root[data-theme='light'] .neo-cursor-ring {
+  border-color: rgba(5, 150, 105, 0.7);
+  background: radial-gradient(circle, rgba(5, 150, 105, 0.12) 0%, transparent 70%);
+}
+
+:root[data-theme='light'] .neo-cursor-ring.hovered {
+  background: radial-gradient(circle, rgba(5, 150, 105, 0.2) 0%, transparent 80%);
+}
+
+/* Mobile & Touch devices: Hide custom cursor */
+@media (hover: none) and (pointer: coarse) {
+  .neo-cursor-dot,
+  .neo-cursor-ring {
+    display: none !important;
   }
 }
